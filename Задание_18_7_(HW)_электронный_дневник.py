@@ -155,7 +155,8 @@ while True:
             class_new = input('Введите новое название предмета: ')
             classes.append(class_new)
             print(f'Предмет {class_new} добавлен')
-            students_marks[student][class_new] = students_marks[student][class_]
+            for student in students:
+                students_marks[student][class_new] = students_marks[student][class_]
             classes.remove(class_)
             print(classes)
         else:
