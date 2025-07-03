@@ -450,42 +450,25 @@ class TestPasswordRecovery(unittest.TestCase):
     def setUp(self):
         self.driver = webdriver.Chrome()
         self.driver.get("https://samara.rt.ru/")
+        self.wait = WebDriverWait(self.driver, 10)
 
     def test_password_recovery(self):
         # Шаг 1: Нажать на кнопку "Войти"
-        login_button = WebDriverWait(self.driver, 10).until(
-            EC.element_to_be_clickable((By.XPATH, "//button[text()='Войти']"))
-        )
-        login_button.click()
-
-        # Ожидаемый результат: Отображается окно с вариантами входа
-        self.assertTrue(WebDriverWait(self.driver, 10).until(
-            EC.presence_of_element_located((By.XPATH, "//div[contains(@class, 'login-options')]"))
-        ))
+        self.driver.find_element(By.XPATH, "//button[text()='Войти']").click()
+        self.assertTrue(self.wait.until(EC.presence_of_element_located((By.XPATH, "//div[contains(text(), 'Варианты входа')]"))))
 
         # Шаг 2: Нажать на кнопку "Войти со своим паролем"
-        password_login_button = self.driver.find_element(By.XPATH, "//button[text()='Войти со своим паролем']")
-        password_login_button.click()
-
-        # Ожидаемый результат: Отображаются поля для ввода данных
-        self.assertTrue(WebDriverWait(self.driver, 10).until(
-            EC.presence_of_element_located((By.XPATH, "//input[@placeholder='Логин']"))
-        ))
+        self.driver.find_element(By.XPATH, "//button[text()='Войти со своим паролем']").click()
+        self.assertTrue(self.wait.until(EC.presence_of_element_located((By.XPATH, "//input[@placeholder='Ваш логин']"))))
 
         # Шаг 3: Нажать на кнопку "Забыли пароль" и выбрать вкладку "логин"
-        forgot_password_button = self.driver.find_element(By.XPATH, "//a[text()='Забыли пароль?']")
-        forgot_password_button.click()
-        login_tab = self.driver.find_element(By.XPATH, "//a[text()='Логин']")
-        login_tab.click()
-
-        # Ожидаемый результат: Отображаются поля для ввода логина и капчи
-        self.assertTrue(WebDriverWait(self.driver, 10).until(
-            EC.presence_of_element_located((By.XPATH, "//input[@placeholder='Логин']"))
-        ))
+        self.driver.find_element(By.XPATH, "//a[text()='Забыли пароль?']").click()
+        self.driver.find_element(By.XPATH, "//button[text()='Логин']").click()
+        self.assertTrue(self.wait.until(EC.presence_of_element_located((By.XPATH, "//input[@placeholder='Логин']"))))
 
         # Шаг 4: Ввести свой логин и капчу и нажать на кнопку "продолжить"
-        login_input = self.driver.find_element(By.XPATH, "//input[@placeholder='Логин']")
-        captcha_input = self.driver.find_element(By.XPATH, "//input[@placeholder='Капча']")
+        login_input = self.driver.find_element(By.XPATH, "//input@placeholder='Логин'")
+        captcha_input = self.driver.find_element(By.XPATH, "//input@placeholder='Капча'")
         continue_button = self.driver.find_element(By.XPATH, "//button[text()='Продолжить']")
 
         login_input.send_keys("ваш_логин")  # Замените на реальный логин
@@ -493,119 +476,108 @@ class TestPasswordRecovery(unittest.TestCase):
         continue_button.click()
 
         # Ожидаемый результат: Отображается окно с выбором метода восстановления пароля
-        self.assertTrue(WebDriverWait(self.driver, 10).until(
-            EC.presence_of_element_located((By.XPATH, "//div[contains(@class, 'recovery-methods')]"))
+        self.assertTrue(self.wait.until(
+            EC.presence_of_element_located((By.XPATH, "//div[contains(text(), 'Выберите способ восстановления')]"))
         ))
 
-# Шаг 5: Выбрать метод восстановления по электронной почте и нажать на кнопку "продолжить"
-email_method = self.driver.find_element(By.XPATH, "//label[contains(text(), 'Электронная почта')]")
-email_method.click()
-continue_button = self.driver.find_element(By.XPATH, "//button[text()='Продолжить']")
-continue_button.click()
+        # Шаг 5: Выбрать метод восстановления по электронной почте и нажать на кнопку "продолжить"
+        email_recovery = self.driver.find_element(By.XPATH, "//label[contains(text(), 'По электронной почте')]")
+        continue_button = self.driver.find_element(By.XPATH, "//button[text()='Продолжить']")
 
-# Ожидаемый результат: Открывается окно с возможностью ввода кода подтверждения
-self.assertTrue(WebDriverWait(self.driver, 10).until(
-    EC.presence_of_element_located((By.XPATH, "//input[@placeholder='Код подтверждения']"))
-))
+        email_recovery.click()
+        continue_button.click()
 
-# Шаг 6: Ввести код подтверждения
-confirmation_code = self.driver.find_element(By.XPATH, "//input[@placeholder='Код подтверждения']")
-confirmation_code.send_keys("ваш_код")  # Замените на реальный код
+        # Ожидаемый результат: Открывается окно с возможностью ввода кода подтверждения
+        self.assertTrue(self.wait.until(
+            EC.presence_of_element_located((By.XPATH, "//input[@placeholder='Код подтверждения']"))
+        ))
 
-# Ожидаемый результат: Открывается окно с вводом нового пароля
-self.assertTrue(WebDriverWait(self.driver, 10).until(
-    EC.presence_of_element_located((By.XPATH, "//input[@placeholder='Новый пароль']"))
-))
+        # Шаг 6: Ввести код подтверждения
+        confirmation_code = self.driver.find_element(By.XPATH, "//input[@placeholder='Код подтверждения']")
+        confirmation_code.send_keys("ваш_код")  # Замените на реальный код
 
-# Шаг 7: Ввести новый пароль
-new_password = self.driver.find_element(By.XPATH, "//input[@placeholder='Новый пароль']")
-confirm_password = self.driver.find_element(By.XPATH, "//input[@placeholder='Подтверждение пароля']")
-submit_button = self.driver.find_element(By.XPATH, "//button[text()='Сохранить']")
+        # Ожидаемый результат: Открывается окно с вводом нового пароля
+        self.assertTrue(self.wait.until(
+            EC.presence_of_element_located((By.XPATH, "//input[@placeholder='Новый пароль']"))
+        ))
 
-new_password.send_keys("ваш_новый_пароль")  # Замените на новый пароль
-confirm_password.send_keys("ваш_новый_пароль")  # Повторите новый пароль
-submit_button.click()
+        # Шаг 7: Ввести новый пароль
+        new_password = self.driver.find_element(By.XPATH, "//input[@placeholder='Новый пароль']")
+        confirm_password = self.driver.find_element(By.XPATH, "//input[@placeholder='Подтверждение пароля']")
+        submit_button = self.driver.find_element(By.XPATH, "//button[text()='Сохранить']")
 
-# Ожидаемый результат: Пароль восстановлен
-self.assertTrue(WebDriverWait(self.driver, 10).until(
-    EC.presence_of_element_located((By.XPATH, "//div[contains(text(), 'Пароль успешно восстановлен')]"))
-))
+        new_password.send_keys("ваш_новый_пароль")  # Замените на новый пароль
+        confirm_password.send_keys("ваш_новый_пароль")  # Повторите новый пароль
+        submit_button.click()
 
+        # Ожидаемый результат: Пароль восстановлен
+        self.assertTrue(self.wait.until(
+            EC.presence_of_element_located((By.XPATH, "//div[contains(text(), 'Пароль успешно восстановлен')]"))
+        ))
 #Тест кейс 9
 
 class TestPasswordRecovery(unittest.TestCase):
     def setUp(self):
         self.driver = webdriver.Chrome()
         self.driver.get("https://samara.rt.ru/")
+        self.wait = WebDriverWait(self.driver, 10)
 
     def test_password_recovery(self):
         # Шаг 1: Нажать на кнопку "Войти"
-        login_button = WebDriverWait(self.driver, 10).until(
-            EC.element_to_be_clickable((By.XPATH, "//button[text()='Войти']"))
-        )
-        login_button.click()
-
-        # Ожидаемый результат: Отображается окно с вариантами входа
-        self.assertTrue(WebDriverWait(self.driver, 10).until(
-            EC.presence_of_element_located((By.XPATH, "//div[contains(@class, 'login-options')]"))
-        ))
+        self.driver.find_element(By.XPATH, "//button[text()='Войти']").click()
+        self.assertTrue(self.wait.until(EC.presence_of_element_located((By.XPATH, "//div[contains(text(), 'Варианты входа')]"))))
 
         # Шаг 2: Нажать на кнопку "Войти со своим паролем"
-        password_login_button = self.driver.find_element(By.XPATH, "//button[text()='Войти со своим паролем']")
-        password_login_button.click()
+        self.driver.find_element(By.XPATH, "//button[text()='Войти со своим паролем']").click()
+        self.assertTrue(self.wait.until(EC.presence_of_element_located((By.XPATH, "//input[@placeholder='Ваш логин']"))))
 
-        # Ожидаемый результат: Отображаются поля для ввода данных
-        self.assertTrue(WebDriverWait(self.driver, 10).until(
-            EC.presence_of_element_located((By.XPATH, "//input[@placeholder='Логин']"))
+        # Шаг 3: Нажать на кнопку "Забыли пароль" и выбрать вкладку "Телефон"
+        self.driver.find_element(By.XPATH, "//a[text()='Забыли пароль?']").click()
+        self.driver.find_element(By.XPATH, "//button[text()='Телефон']").click()
+        self.assertTrue(self.wait.until(EC.presence_of_element_located((By.XPATH, "//input[@placeholder='Телефон']"))))
+
+        # Шаг 4: Ввести свой телефон и капчу и нажать на кнопку "продолжить"
+        phone_input = self.driver.find_element(By.XPATH, "//input[@placeholder='Телефон']")
+        captcha_input = self.driver.find_element(By.XPATH, "//input[@placeholder='Капча']")
+        continue_button = self.driver.find_element(By.XPATH, "//button[text()='Продолжить']")
+
+        phone_input.send_keys("ваш_номер_телефона")  # Замените на реальный номер
+        captcha_input.send_keys("ваша_капча")  # Замените на реальную капчу
+        continue_button.click()
+
+        # Ожидаемый результат: Открывается окно с возможностью ввода кода подтверждения
+        self.assertTrue(self.wait.until(
+            EC.presence_of_element_located((By.XPATH, "//input[@placeholder='Код подтверждения']"))
         ))
 
-# Шаг 3: Нажать на кнопку "Забыли пароль" и выбрать вкладку "Телефон"
-forgot_password_button = self.driver.find_element(By.XPATH, "//a[text()='Забыли пароль?']")
-forgot_password_button.click()
-phone_tab = self.driver.find_element(By.XPATH, "//a[text()='Телефон']")
-phone_tab.click()
+        # Шаг 5: Ввести код подтверждения
+        confirmation_code = self.driver.find_element(By.XPATH, "//input[@placeholder='Код подтверждения']")
+        confirmation_code.send_keys("ваш_код")  # Замените на реальный код
 
-# Ожидаемый результат: Отображаются поля для ввода телефона и капчи
-self.assertTrue(WebDriverWait(self.driver, 10).until(
-    EC.presence_of_element_located((By.XPATH, "//input[@placeholder='Телефон']"))
-))
+        # Ожидаемый результат: Открывается окно с вводом нового пароля
+        self.assertTrue(self.wait.until(
+            EC.presence_of_element_located((By.XPATH, "//input[@placeholder='Новый пароль']"))
+        ))
 
-# Шаг 4: Ввести свой телефон и капчу и нажать на кнопку "продолжить"
-phone_input = self.driver.find_element(By.XPATH, "//input[@placeholder='Телефон']")
-captcha_input = self.driver.find_element(By.XPATH, "//input[@placeholder='Капча']")
-continue_button = self.driver.find_element(By.XPATH, "//button[text()='Продолжить']")
+        # Шаг 6: Ввести новый пароль
+        new_password = self.driver.find_element(By.XPATH, "//input[@placeholder='Новый пароль']")
+        confirm_password = self.driver.find_element(By.XPATH, "//input[@placeholder='Подтверждение пароля']")
+        submit_button = self.driver.find_element(By.XPATH, "//button[text()='Сохранить']")
 
-phone_input.send_keys("ваш_номер_телефона")  # Замените на реальный номер
-captcha_input.send_keys("ваша_капча")  # Замените на реальную капчу
-continue_button.click()
+        new_password.send_keys("ваш_новый_пароль")  # Замените на новый пароль
+        confirm_password.send_keys("ваш_новый_пароль")  # Повторите новый пароль
+        submit_button.click()
 
-# Ожидаемый результат: Открывается окно с возможностью ввода кода подтверждения
-self.assertTrue(WebDriverWait(self.driver, 10).until(
-    EC.presence_of_element_located((By.XPATH, "//input[@placeholder='Код подтверждения']"))
-))
+        # Ожидаемый результат: Пароль восстановлен
+        self.assertTrue(self.wait.until(
+            EC.presence_of_element_located((By.XPATH, "//div[contains(text(), 'Пароль успешно восстановлен')]"))
+        ))
 
-# Шаг 5: Ввести код подтверждения
-confirmation_code = self.driver.find_element(By.XPATH, "//input@placeholder='Код подтверждения'")
-confirmation_code.send_keys("ваш_код")  # Замените на реальный код
+    def tearDown(self):
+        self.driver.quit()
 
-# Ожидаемый результат: Открывается окно с вводом нового пароля
-self.assertTrue(WebDriverWait(self.driver, 10).until(
-    EC.presence_of_element_located((By.XPATH, "//input@placeholder='Новый пароль'"))
-))
-
-# Шаг 6: Ввести новый пароль
-new_password = self.driver.find_element(By.XPATH, "//input@placeholder='Новый пароль'")
-confirm_password = self.driver.find_element(By.XPATH, "//input@placeholder='Подтверждение пароля'")
-submit_button = self.driver.find_element(By.XPATH, "//button[text()='Сохранить']")
-
-new_password.send_keys("ваш_новый_пароль")  # Замените на новый пароль
-confirm_password.send_keys("ваш_новый_пароль")  # Повторите новый пароль
-submit_button.click()
-
-# Ожидаемый результат: Пароль восстановлен
-self.assertTrue(WebDriverWait(self.driver, 10).until(
-    EC.presence_of_element_located((By.XPATH, "//div[contains(text(), 'Пароль успешно восстановлен')]"))
-))
+if __name__ == "__main__":
+    unittest.main()
 
 # Тест кейс 10
 
