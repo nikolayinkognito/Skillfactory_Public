@@ -11,16 +11,31 @@ class TestAuthorization(unittest.TestCase):
     def setUp(self):
         self.driver = webdriver.Chrome()
         self.driver.get("https://samara.rt.ru/")
+        self.wait = WebDriverWait(self.driver, 10)
 
     def test_authorization(self):
-        # Шаг 1: Нажать на кнопку "Войти"
-        login_button = WebDriverWait(self.driver, 10).until(
-            EC.element_to_be_clickable((By.XPATH, "//button[text()='Войти']"))
-        )
+        # Шаг 1: Поиск кнопки "Войти" через разные варианты
+        try:
+            # Вариант 1: поиск по тексту кнопки
+            login_button = self.wait.until(
+                EC.element_to_be_clickable((By.XPATH, "//button[contains(text(), 'Войти')]"))
+            )
+        except:
+            try:
+                # Вариант 2: поиск по классу (если есть уникальный класс)
+                login_button = self.wait.until(
+                    EC.element_to_be_clickable((By.CSS_SELECTOR, ".header-login-button"))
+                )
+            except:
+                # Вариант 3: поиск по родительскому элементу
+                login_button = self.wait.until(
+                    EC.element_to_be_clickable((By.XPATH, "//header//button[contains(text(), 'Войти')]"))
+                )
+
         login_button.click()
 
         # Ожидаемый результат: Отображается окно с вариантами входа
-        self.assertTrue(WebDriverWait(self.driver, 10).until(
+        self.assertTrue(self.wait.until(
             EC.presence_of_element_located((By.XPATH, "//div[contains(@class, 'login-options')]"))
         ))
 
@@ -67,16 +82,31 @@ class TestAuthorization(unittest.TestCase):
     def setUp(self):
         self.driver = webdriver.Chrome()
         self.driver.get("https://samara.rt.ru/")
+        self.wait = WebDriverWait(self.driver, 10)
 
     def test_authorization(self):
-        # Шаг 1: Нажать на кнопку "Войти"
-        login_button = WebDriverWait(self.driver, 10).until(
-            EC.element_to_be_clickable((By.XPATH, "//button[text()='Войти']"))
-        )
+        # Шаг 1: Поиск кнопки "Войти" через разные варианты
+        try:
+            # Вариант 1: поиск по тексту кнопки
+            login_button = self.wait.until(
+                EC.element_to_be_clickable((By.XPATH, "//button[contains(text(), 'Войти')]"))
+            )
+        except:
+            try:
+                # Вариант 2: поиск по классу (если есть уникальный класс)
+                login_button = self.wait.until(
+                    EC.element_to_be_clickable((By.CSS_SELECTOR, ".header-login-button"))
+                )
+            except:
+                # Вариант 3: поиск по родительскому элементу
+                login_button = self.wait.until(
+                    EC.element_to_be_clickable((By.XPATH, "//header//button[contains(text(), 'Войти')]"))
+                )
+
         login_button.click()
 
         # Ожидаемый результат: Отображается окно с вариантами входа
-        self.assertTrue(WebDriverWait(self.driver, 10).until(
+        self.assertTrue(self.wait.until(
             EC.presence_of_element_located((By.XPATH, "//div[contains(@class, 'login-options')]"))
         ))
 
@@ -134,16 +164,31 @@ class TestAuthorization(unittest.TestCase):
     def setUp(self):
         self.driver = webdriver.Chrome()
         self.driver.get("https://samara.rt.ru/")
+        self.wait = WebDriverWait(self.driver, 10)
 
     def test_authorization(self):
-        # Шаг 1: Нажать на кнопку "Войти"
-        login_button = WebDriverWait(self.driver, 10).until(
-            EC.element_to_be_clickable((By.XPATH, "//button[text()='Войти']"))
-        )
+        # Шаг 1: Поиск кнопки "Войти" через разные варианты
+        try:
+            # Вариант 1: поиск по тексту кнопки
+            login_button = self.wait.until(
+                EC.element_to_be_clickable((By.XPATH, "//button[contains(text(), 'Войти')]"))
+            )
+        except:
+            try:
+                # Вариант 2: поиск по классу (если есть уникальный класс)
+                login_button = self.wait.until(
+                    EC.element_to_be_clickable((By.CSS_SELECTOR, ".header-login-button"))
+                )
+            except:
+                # Вариант 3: поиск по родительскому элементу
+                login_button = self.wait.until(
+                    EC.element_to_be_clickable((By.XPATH, "//header//button[contains(text(), 'Войти')]"))
+                )
+
         login_button.click()
 
         # Ожидаемый результат: Отображается окно с вариантами входа
-        self.assertTrue(WebDriverWait(self.driver, 10).until(
+        self.assertTrue(self.wait.until(
             EC.presence_of_element_located((By.XPATH, "//div[contains(@class, 'login-options')]"))
         ))
 
@@ -201,16 +246,31 @@ class TestAuthorization(unittest.TestCase):
     def setUp(self):
         self.driver = webdriver.Chrome()
         self.driver.get("https://samara.rt.ru/")
+        self.wait = WebDriverWait(self.driver, 10)
 
     def test_authorization(self):
-        # Шаг 1: Нажать на кнопку "Войти"
-        login_button = WebDriverWait(self.driver, 10).until(
-            EC.element_to_be_clickable((By.XPATH, "//button[text()='Войти']"))
-        )
+        # Шаг 1: Поиск кнопки "Войти" через разные варианты
+        try:
+            # Вариант 1: поиск по тексту кнопки
+            login_button = self.wait.until(
+                EC.element_to_be_clickable((By.XPATH, "//button[contains(text(), 'Войти')]"))
+            )
+        except:
+            try:
+                # Вариант 2: поиск по классу (если есть уникальный класс)
+                login_button = self.wait.until(
+                    EC.element_to_be_clickable((By.CSS_SELECTOR, ".header-login-button"))
+                )
+            except:
+                # Вариант 3: поиск по родительскому элементу
+                login_button = self.wait.until(
+                    EC.element_to_be_clickable((By.XPATH, "//header//button[contains(text(), 'Войти')]"))
+                )
+
         login_button.click()
 
         # Ожидаемый результат: Отображается окно с вариантами входа
-        self.assertTrue(WebDriverWait(self.driver, 10).until(
+        self.assertTrue(self.wait.until(
             EC.presence_of_element_located((By.XPATH, "//div[contains(@class, 'login-options')]"))
         ))
 
@@ -250,16 +310,31 @@ class TestAuthorization(unittest.TestCase):
     def setUp(self):
         self.driver = webdriver.Chrome()
         self.driver.get("https://samara.rt.ru/")
+        self.wait = WebDriverWait(self.driver, 10)
 
     def test_authorization(self):
-        # Шаг 1: Нажать на кнопку "Войти"
-        login_button = WebDriverWait(self.driver, 10).until(
-            EC.element_to_be_clickable((By.XPATH, "//button[text()='Войти']"))
-        )
+        # Шаг 1: Поиск кнопки "Войти" через разные варианты
+        try:
+            # Вариант 1: поиск по тексту кнопки
+            login_button = self.wait.until(
+                EC.element_to_be_clickable((By.XPATH, "//button[contains(text(), 'Войти')]"))
+            )
+        except:
+            try:
+                # Вариант 2: поиск по классу (если есть уникальный класс)
+                login_button = self.wait.until(
+                    EC.element_to_be_clickable((By.CSS_SELECTOR, ".header-login-button"))
+                )
+            except:
+                # Вариант 3: поиск по родительскому элементу
+                login_button = self.wait.until(
+                    EC.element_to_be_clickable((By.XPATH, "//header//button[contains(text(), 'Войти')]"))
+                )
+
         login_button.click()
 
         # Ожидаемый результат: Отображается окно с вариантами входа
-        self.assertTrue(WebDriverWait(self.driver, 10).until(
+        self.assertTrue(self.wait.until(
             EC.presence_of_element_located((By.XPATH, "//div[contains(@class, 'login-options')]"))
         ))
 
@@ -300,16 +375,31 @@ class TestAuthorization(unittest.TestCase):
     def setUp(self):
         self.driver = webdriver.Chrome()
         self.driver.get("https://samara.rt.ru/")
+        self.wait = WebDriverWait(self.driver, 10)
 
     def test_authorization(self):
-        # Шаг 1: Нажать на кнопку "Войти"
-        login_button = WebDriverWait(self.driver, 10).until(
-            EC.element_to_be_clickable((By.XPATH, "//button[text()='Войти']"))
-        )
+        # Шаг 1: Поиск кнопки "Войти" через разные варианты
+        try:
+            # Вариант 1: поиск по тексту кнопки
+            login_button = self.wait.until(
+                EC.element_to_be_clickable((By.XPATH, "//button[contains(text(), 'Войти')]"))
+            )
+        except:
+            try:
+                # Вариант 2: поиск по классу (если есть уникальный класс)
+                login_button = self.wait.until(
+                    EC.element_to_be_clickable((By.CSS_SELECTOR, ".header-login-button"))
+                )
+            except:
+                # Вариант 3: поиск по родительскому элементу
+                login_button = self.wait.until(
+                    EC.element_to_be_clickable((By.XPATH, "//header//button[contains(text(), 'Войти')]"))
+                )
+
         login_button.click()
 
         # Ожидаемый результат: Отображается окно с вариантами входа
-        self.assertTrue(WebDriverWait(self.driver, 10).until(
+        self.assertTrue(self.wait.until(
             EC.presence_of_element_located((By.XPATH, "//div[contains(@class, 'login-options')]"))
         ))
 
@@ -353,20 +443,35 @@ class TestAuthorization(unittest.TestCase):
 
 # Тест кейс 7
 
-class TestPasswordRecovery(unittest.TestCase):
+class TestAuthorization(unittest.TestCase):
     def setUp(self):
         self.driver = webdriver.Chrome()
         self.driver.get("https://samara.rt.ru/")
+        self.wait = WebDriverWait(self.driver, 10)
 
-    def test_password_recovery(self):
-        # Шаг 1: Нажать на кнопку "Войти"
-        login_button = WebDriverWait(self.driver, 10).until(
-            EC.element_to_be_clickable((By.XPATH, "//button[text()='Войти']"))
-        )
+    def test_authorization(self):
+        # Шаг 1: Поиск кнопки "Войти" через разные варианты
+        try:
+            # Вариант 1: поиск по тексту кнопки
+            login_button = self.wait.until(
+                EC.element_to_be_clickable((By.XPATH, "//button[contains(text(), 'Войти')]"))
+            )
+        except:
+            try:
+                # Вариант 2: поиск по классу (если есть уникальный класс)
+                login_button = self.wait.until(
+                    EC.element_to_be_clickable((By.CSS_SELECTOR, ".header-login-button"))
+                )
+            except:
+                # Вариант 3: поиск по родительскому элементу
+                login_button = self.wait.until(
+                    EC.element_to_be_clickable((By.XPATH, "//header//button[contains(text(), 'Войти')]"))
+                )
+
         login_button.click()
 
         # Ожидаемый результат: Отображается окно с вариантами входа
-        self.assertTrue(WebDriverWait(self.driver, 10).until(
+        self.assertTrue(self.wait.until(
             EC.presence_of_element_located((By.XPATH, "//div[contains(@class, 'login-options')]"))
         ))
 
@@ -446,16 +551,37 @@ class TestPasswordRecovery(unittest.TestCase):
 
 # Тест кейс 8
 
-class TestPasswordRecovery(unittest.TestCase):
+class TestAuthorization(unittest.TestCase):
     def setUp(self):
         self.driver = webdriver.Chrome()
         self.driver.get("https://samara.rt.ru/")
         self.wait = WebDriverWait(self.driver, 10)
 
-    def test_password_recovery(self):
-        # Шаг 1: Нажать на кнопку "Войти"
-        self.driver.find_element(By.XPATH, "//button[text()='Войти']").click()
-        self.assertTrue(self.wait.until(EC.presence_of_element_located((By.XPATH, "//div[contains(text(), 'Варианты входа')]"))))
+    def test_authorization(self):
+        # Шаг 1: Поиск кнопки "Войти" через разные варианты
+        try:
+            # Вариант 1: поиск по тексту кнопки
+            login_button = self.wait.until(
+                EC.element_to_be_clickable((By.XPATH, "//button[contains(text(), 'Войти')]"))
+            )
+        except:
+            try:
+                # Вариант 2: поиск по классу (если есть уникальный класс)
+                login_button = self.wait.until(
+                    EC.element_to_be_clickable((By.CSS_SELECTOR, ".header-login-button"))
+                )
+            except:
+                # Вариант 3: поиск по родительскому элементу
+                login_button = self.wait.until(
+                    EC.element_to_be_clickable((By.XPATH, "//header//button[contains(text(), 'Войти')]"))
+                )
+
+        login_button.click()
+
+        # Ожидаемый результат: Отображается окно с вариантами входа
+        self.assertTrue(self.wait.until(
+            EC.presence_of_element_located((By.XPATH, "//div[contains(@class, 'login-options')]"))
+        ))
 
         # Шаг 2: Нажать на кнопку "Войти со своим паролем"
         self.driver.find_element(By.XPATH, "//button[text()='Войти со своим паролем']").click()
@@ -516,16 +642,37 @@ class TestPasswordRecovery(unittest.TestCase):
         ))
 #Тест кейс 9
 
-class TestPasswordRecovery(unittest.TestCase):
+class TestAuthorization(unittest.TestCase):
     def setUp(self):
         self.driver = webdriver.Chrome()
         self.driver.get("https://samara.rt.ru/")
         self.wait = WebDriverWait(self.driver, 10)
 
-    def test_password_recovery(self):
-        # Шаг 1: Нажать на кнопку "Войти"
-        self.driver.find_element(By.XPATH, "//button[text()='Войти']").click()
-        self.assertTrue(self.wait.until(EC.presence_of_element_located((By.XPATH, "//div[contains(text(), 'Варианты входа')]"))))
+    def test_authorization(self):
+        # Шаг 1: Поиск кнопки "Войти" через разные варианты
+        try:
+            # Вариант 1: поиск по тексту кнопки
+            login_button = self.wait.until(
+                EC.element_to_be_clickable((By.XPATH, "//button[contains(text(), 'Войти')]"))
+            )
+        except:
+            try:
+                # Вариант 2: поиск по классу (если есть уникальный класс)
+                login_button = self.wait.until(
+                    EC.element_to_be_clickable((By.CSS_SELECTOR, ".header-login-button"))
+                )
+            except:
+                # Вариант 3: поиск по родительскому элементу
+                login_button = self.wait.until(
+                    EC.element_to_be_clickable((By.XPATH, "//header//button[contains(text(), 'Войти')]"))
+                )
+
+        login_button.click()
+
+        # Ожидаемый результат: Отображается окно с вариантами входа
+        self.assertTrue(self.wait.until(
+            EC.presence_of_element_located((By.XPATH, "//div[contains(@class, 'login-options')]"))
+        ))
 
         # Шаг 2: Нажать на кнопку "Войти со своим паролем"
         self.driver.find_element(By.XPATH, "//button[text()='Войти со своим паролем']").click()
@@ -588,9 +735,30 @@ class TestAuthorization(unittest.TestCase):
         self.wait = WebDriverWait(self.driver, 10)
 
     def test_authorization(self):
-        # Шаг 1: Нажать на кнопку "Войти"
-        self.driver.find_element(By.XPATH, "//button[text()='Войти']").click()
-        self.assertTrue(self.wait.until(EC.presence_of_element_located((By.XPATH, "//div[contains(text(), 'Варианты входа')]"))))
+        # Шаг 1: Поиск кнопки "Войти" через разные варианты
+        try:
+            # Вариант 1: поиск по тексту кнопки
+            login_button = self.wait.until(
+                EC.element_to_be_clickable((By.XPATH, "//button[contains(text(), 'Войти')]"))
+            )
+        except:
+            try:
+                # Вариант 2: поиск по классу (если есть уникальный класс)
+                login_button = self.wait.until(
+                    EC.element_to_be_clickable((By.CSS_SELECTOR, ".header-login-button"))
+                )
+            except:
+                # Вариант 3: поиск по родительскому элементу
+                login_button = self.wait.until(
+                    EC.element_to_be_clickable((By.XPATH, "//header//button[contains(text(), 'Войти')]"))
+                )
+
+        login_button.click()
+
+        # Ожидаемый результат: Отображается окно с вариантами входа
+        self.assertTrue(self.wait.until(
+            EC.presence_of_element_located((By.XPATH, "//div[contains(@class, 'login-options')]"))
+        ))
 
         # Шаг 2: Нажать на кнопку "Войти со своим паролем"
         self.driver.find_element(By.XPATH, "//button[text()='Войти со своим паролем']").click()
@@ -653,9 +821,30 @@ class TestAuthorization(unittest.TestCase):
         self.wait = WebDriverWait(self.driver, 10)
 
     def test_authorization(self):
-        # Шаг 1: Нажать на кнопку "Войти"
-        self.driver.find_element(By.XPATH, "//button[text()='Войти']").click()
-        self.assertTrue(self.wait.until(EC.presence_of_element_located((By.XPATH, "//div[contains(text(), 'Варианты входа')]"))))
+        # Шаг 1: Поиск кнопки "Войти" через разные варианты
+        try:
+            # Вариант 1: поиск по тексту кнопки
+            login_button = self.wait.until(
+                EC.element_to_be_clickable((By.XPATH, "//button[contains(text(), 'Войти')]"))
+            )
+        except:
+            try:
+                # Вариант 2: поиск по классу (если есть уникальный класс)
+                login_button = self.wait.until(
+                    EC.element_to_be_clickable((By.CSS_SELECTOR, ".header-login-button"))
+                )
+            except:
+                # Вариант 3: поиск по родительскому элементу
+                login_button = self.wait.until(
+                    EC.element_to_be_clickable((By.XPATH, "//header//button[contains(text(), 'Войти')]"))
+                )
+
+        login_button.click()
+
+        # Ожидаемый результат: Отображается окно с вариантами входа
+        self.assertTrue(self.wait.until(
+            EC.presence_of_element_located((By.XPATH, "//div[contains(@class, 'login-options')]"))
+        ))
 
         # Шаг 2: Нажать на кнопку "Войти со своим паролем"
         self.driver.find_element(By.XPATH, "//button[text()='Войти со своим паролем']").click()
@@ -705,16 +894,37 @@ class TestAuthorization(unittest.TestCase):
 
 # Тест кейс 12
 
-class TestRegistration(unittest.TestCase):
+class TestAuthorization(unittest.TestCase):
     def setUp(self):
         self.driver = webdriver.Chrome()
         self.driver.get("https://samara.rt.ru/")
         self.wait = WebDriverWait(self.driver, 10)
 
-    def test_registration(self):
-        # Шаг 1: Нажать на кнопку "Войти"
-        self.driver.find_element(By.XPATH, "//button[text()='Войти']").click()
-        self.assertTrue(self.wait.until(EC.presence_of_element_located((By.XPATH, "//div[contains(text(), 'Варианты входа')]"))))
+    def test_authorization(self):
+        # Шаг 1: Поиск кнопки "Войти" через разные варианты
+        try:
+            # Вариант 1: поиск по тексту кнопки
+            login_button = self.wait.until(
+                EC.element_to_be_clickable((By.XPATH, "//button[contains(text(), 'Войти')]"))
+            )
+        except:
+            try:
+                # Вариант 2: поиск по классу (если есть уникальный класс)
+                login_button = self.wait.until(
+                    EC.element_to_be_clickable((By.CSS_SELECTOR, ".header-login-button"))
+                )
+            except:
+                # Вариант 3: поиск по родительскому элементу
+                login_button = self.wait.until(
+                    EC.element_to_be_clickable((By.XPATH, "//header//button[contains(text(), 'Войти')]"))
+                )
+
+        login_button.click()
+
+        # Ожидаемый результат: Отображается окно с вариантами входа
+        self.assertTrue(self.wait.until(
+            EC.presence_of_element_located((By.XPATH, "//div[contains(@class, 'login-options')]"))
+        ))
 
         # Шаг 2: Нажать на кнопку "Войти со своим паролем"
         self.driver.find_element(By.XPATH, "//button[text()='Войти со своим паролем']").click()
@@ -752,16 +962,37 @@ class TestRegistration(unittest.TestCase):
 
 # Тест кейс 13
 
-class TestRegistration(unittest.TestCase):
+class TestAuthorization(unittest.TestCase):
     def setUp(self):
         self.driver = webdriver.Chrome()
         self.driver.get("https://samara.rt.ru/")
         self.wait = WebDriverWait(self.driver, 10)
 
-    def test_registration(self):
-        # Шаг 1: Нажать на кнопку "Войти"
-        self.driver.find_element(By.XPATH, "//button[text()='Войти']").click()
-        self.assertTrue(self.wait.until(EC.presence_of_element_located((By.XPATH, "//div[contains(text(), 'Варианты входа')]"))))
+    def test_authorization(self):
+        # Шаг 1: Поиск кнопки "Войти" через разные варианты
+        try:
+            # Вариант 1: поиск по тексту кнопки
+            login_button = self.wait.until(
+                EC.element_to_be_clickable((By.XPATH, "//button[contains(text(), 'Войти')]"))
+            )
+        except:
+            try:
+                # Вариант 2: поиск по классу (если есть уникальный класс)
+                login_button = self.wait.until(
+                    EC.element_to_be_clickable((By.CSS_SELECTOR, ".header-login-button"))
+                )
+            except:
+                # Вариант 3: поиск по родительскому элементу
+                login_button = self.wait.until(
+                    EC.element_to_be_clickable((By.XPATH, "//header//button[contains(text(), 'Войти')]"))
+                )
+
+        login_button.click()
+
+        # Ожидаемый результат: Отображается окно с вариантами входа
+        self.assertTrue(self.wait.until(
+            EC.presence_of_element_located((By.XPATH, "//div[contains(@class, 'login-options')]"))
+        ))
 
         # Шаг 2: Нажать на кнопку "Войти со своим паролем"
         self.driver.find_element(By.XPATH, "//button[text()='Войти со своим паролем']").click()
@@ -799,22 +1030,37 @@ class TestRegistration(unittest.TestCase):
 
 # Тест кейс 14
 
-class TestCookieAcceptance(unittest.TestCase):
+class TestAuthorization(unittest.TestCase):
     def setUp(self):
         self.driver = webdriver.Chrome()
         self.driver.get("https://samara.rt.ru/")
         self.wait = WebDriverWait(self.driver, 10)
 
-    def test_cookie_acceptance(self):
-        # Шаг 1: Нажать на кнопку "Войти"
-        self.driver.find_element(By.XPATH, "//button[text()='Войти']").click()
-        self.assertTrue(
-            self.wait.until(EC.presence_of_element_located((By.XPATH, "//div[contains(text(), 'Варианты входа')]"))))
+    def test_authorization(self):
+        # Шаг 1: Поиск кнопки "Войти" через разные варианты
+        try:
+            # Вариант 1: поиск по тексту кнопки
+            login_button = self.wait.until(
+                EC.element_to_be_clickable((By.XPATH, "//button[contains(text(), 'Войти')]"))
+            )
+        except:
+            try:
+                # Вариант 2: поиск по классу (если есть уникальный класс)
+                login_button = self.wait.until(
+                    EC.element_to_be_clickable((By.CSS_SELECTOR, ".header-login-button"))
+                )
+            except:
+                # Вариант 3: поиск по родительскому элементу
+                login_button = self.wait.until(
+                    EC.element_to_be_clickable((By.XPATH, "//header//button[contains(text(), 'Войти')]"))
+                )
 
-        # Ожидаемый результат: Открывается окно с предложением принять файлы cookie
-        cookie_message = self.wait.until(EC.visibility_of_element_located(
-            (By.XPATH, "//p[contains(text(), 'Файлы cookie используются для улучшения вашего опыта')]")))
-        self.assertIsNotNone(cookie_message)
+        login_button.click()
+
+        # Ожидаемый результат: Отображается окно с вариантами входа
+        self.assertTrue(self.wait.until(
+            EC.presence_of_element_located((By.XPATH, "//div[contains(@class, 'login-options')]"))
+        ))
 
         # Шаг 2: Нажать на кнопку "принять файлы Cookie"
         cookie_accept_button = self.driver.find_element(By.XPATH, "//button[contains(text(), 'Принять')]")
@@ -833,22 +1079,37 @@ if __name__ == "__main__":
 # Тест кейс 15
 
 
-class TestCookieRejection(unittest.TestCase):
+class TestAuthorization(unittest.TestCase):
     def setUp(self):
         self.driver = webdriver.Chrome()
         self.driver.get("https://samara.rt.ru/")
         self.wait = WebDriverWait(self.driver, 10)
 
-    def test_cookie_rejection(self):
-        # Шаг 1: Нажать на кнопку "Войти"
-        self.driver.find_element(By.XPATH, "//button[text()='Войти']").click()
-        self.assertTrue(
-            self.wait.until(EC.presence_of_element_located((By.XPATH, "//div[contains(text(), 'Варианты входа')]"))))
+    def test_authorization(self):
+        # Шаг 1: Поиск кнопки "Войти" через разные варианты
+        try:
+            # Вариант 1: поиск по тексту кнопки
+            login_button = self.wait.until(
+                EC.element_to_be_clickable((By.XPATH, "//button[contains(text(), 'Войти')]"))
+            )
+        except:
+            try:
+                # Вариант 2: поиск по классу (если есть уникальный класс)
+                login_button = self.wait.until(
+                    EC.element_to_be_clickable((By.CSS_SELECTOR, ".header-login-button"))
+                )
+            except:
+                # Вариант 3: поиск по родительскому элементу
+                login_button = self.wait.until(
+                    EC.element_to_be_clickable((By.XPATH, "//header//button[contains(text(), 'Войти')]"))
+                )
 
-        # Ожидаемый результат: Открывается окно с предложением принять файлы cookie
-        cookie_message = self.wait.until(EC.visibility_of_element_located(
-            (By.XPATH, "//p[contains(text(), 'Файлы cookie используются для улучшения вашего опыта')]")))
-        self.assertIsNotNone(cookie_message)
+        login_button.click()
+
+        # Ожидаемый результат: Отображается окно с вариантами входа
+        self.assertTrue(self.wait.until(
+            EC.presence_of_element_located((By.XPATH, "//div[contains(@class, 'login-options')]"))
+        ))
 
         # Шаг 2: Нажать на кнопку "отклонить файлы Cookie"
         cookie_reject_button = self.driver.find_element(By.XPATH, "//button[contains(text(), 'Отклонить')]")
